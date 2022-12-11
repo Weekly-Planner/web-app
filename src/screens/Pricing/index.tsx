@@ -1,5 +1,6 @@
+import Layout from "../../components/Layout";
 import "./index.module.css";
 
 export default function Pricing() {
-  return <div>Pricing</div>;
+  return <Layout title="Pricing">Pricing</Layout>;
 }

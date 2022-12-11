@@ -1,5 +1,6 @@
+import Layout from "../../components/Layout";
 import "./index.module.css";
 
 export default function About() {
-  return <div>About</div>;
+  return <Layout title="About Us">About</Layout>;
 }
