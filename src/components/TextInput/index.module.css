@@ -1,0 +1,56 @@
+.inputContainer {
+  border-bottom: 2px solid lightgray;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.inputContainer.error {
+  border-bottom-color: rgb(221, 44, 44);
+}
+
+.error input::placeholder {
+  color: rgb(221, 44, 44);
+}
+
+.error svg {
+  color: rgb(221, 44, 44);
+}
+
+.inputContainer:focus-within,
+.inputContainer::after {
+  border-bottom: 2px solid rgb(18, 100, 100);
+}
+
+.input {
+  background-color: transparent;
+  border: none;
+  height: 50px;
+  width: 100%;
+  font-size: large;
+}
+
+.multilineTextInput {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  font-size: large;
+}
+
+.input:focus,
+.input:active,
+.input:focus-visible,
+.multilineTextInput:focus,
+.multilineTextInput:active,
+.multilineTextInput:focus-visible {
+  outline: none;
+}
+
+.inputError {
+  color: rgb(221, 44, 44);
+  margin: 6px 0px;
+  text-align: right;
+  font-weight: 500;
+  min-height: 25px;
+}

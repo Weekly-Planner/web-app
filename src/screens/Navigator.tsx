@@ -1,7 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import About from "./About";
 import Dashboard from "./Dashboard";
+import Features from "./Features";
 import Home from "./Home";
 import Login from "./Login";
+import Pricing from "./Pricing";
 import PrivateRoutes from "./PrivateRoutes";
 import Signup from "./Signup";
 
@@ -16,6 +19,9 @@ export default function Navigator() {
         {/* Public Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/features" element={<Features />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </BrowserRouter>

@@ -1,0 +1,109 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.leftContainer {
+  display: none;
+}
+
+.leftImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rightContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.topContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  margin: 32px 0px;
+  justify-content: space-evenly;
+  width: 40%;
+}
+
+.bottomContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.orContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.orLine {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+  height: 1px;
+}
+
+.orText {
+  margin: 0px 12px;
+  font-style: italic;
+  opacity: 0.5;
+}
+
+.signup {
+  text-decoration: underline;
+  color: rgb(34, 167, 167);
+  font-weight: 600;
+}
+
+.icon {
+  color: gray;
+  cursor: pointer;
+}
+
+.title {
+  margin: 0px;
+}
+
+.subtitle {
+  text-align: center;
+}
+
+.crossContainer {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  margin: 12px 0px 0px 12px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  background-color: #212121;
+  border-radius: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .leftContainer {
+    display: block;
+    flex: 1;
+    height: 100vh;
+  }
+}
