@@ -1,12 +1,15 @@
-import { useFormik } from "formik";
+import { AuthErrorCodes, signInWithEmailAndPassword } from "firebase/auth";
+import { FormikHelpers, useFormik } from "formik";
 import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import PasswordIcon from "../../components/PasswordIcon";
 import TextInput from "../../components/TextInput";
 
 import { LOGIN_VALIDATION } from "../../constants/validations";
+import { useAuth } from "../../contexts/AuthProvider";
 import styles from "../../global/styles/Auth.module.css";
 
 interface ILoginForm {
@@ -21,9 +24,38 @@ const initialValues: ILoginForm = {
 
 const Login: React.FC = () => {
   const [isPasswordVisible, setPasswordVisibility] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
+  const handleSubmit = async (
+    values: ILoginForm,
+    actions: FormikHelpers<ILoginForm>
+  ) => {
+    try {
+      await login(values.email.trim(), values.password);
+      navigate("/dashboard");
+    } catch (err: any) {
+      switch (err.code) {
+        case AuthErrorCodes.USER_DELETED:
+        case AuthErrorCodes.INVALID_PASSWORD:
+          actions.setErrors({
+            email: "Invalid Credentials",
+            password: "Invalid Credentials",
+          });
+          break;
+        case AuthErrorCodes.USER_DISABLED:
+          actions.setFieldError("email", "Contact Customer Support");
+          break;
+        default:
+          console.error({ err });
+          break;
+      }
+    }
+  };
+
   const formik = useFormik({
     initialValues,
-    onSubmit: () => {},
+    onSubmit: handleSubmit,
     validationSchema: LOGIN_VALIDATION,
   });
 
