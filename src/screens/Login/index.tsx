@@ -1,4 +1,4 @@
-import { AuthErrorCodes, signInWithEmailAndPassword } from "firebase/auth";
+import { AuthErrorCodes } from "firebase/auth";
 import { FormikHelpers, useFormik } from "formik";
 import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
@@ -70,7 +70,7 @@ const Login: React.FC = () => {
         </a>
         <div className={styles.leftContainer}>
           <img
-            src={"/images/login.jpeg"}
+            src={"/images/login.webp"}
             alt={
               "Goals diary laying on a blue desk next a tea cup with fancy pens"
             }
@@ -110,11 +110,6 @@ const Login: React.FC = () => {
             <Button title="login" type="submit" />
           </form>
           <div className={styles.bottomContainer}>
-            <div className={styles.orContainer}>
-              <div className={styles.orLine} />
-              <p className={styles.orText}>or</p>
-              <div className={styles.orLine} />
-            </div>
             <p>
               New Planner?{" "}
               <a className={styles.signup} href={"/signup"}>

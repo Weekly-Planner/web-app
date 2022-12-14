@@ -1,22 +1,26 @@
-import { useFormik } from "formik";
+import { AuthErrorCodes, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { FormikHelpers, useFormik } from "formik";
 import { useState } from "react";
-import { Helmet } from "react-helmet";
 import { RxCross2 } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import PasswordIcon from "../../components/PasswordIcon";
 import TextInput from "../../components/TextInput";
 import { SIGNUP_VALIDATION } from "../../constants/validations";
+import { useAuth } from "../../contexts/AuthProvider";
 import styles from "../../global/styles/Auth.module.css";
+import { auth, firestore } from "../../services/firebase";
 
-interface ISignupForm {
+type SignupFormTypes = {
   email: string;
   password: string;
   confirmPassword: string;
   name: string;
-}
+};
 
-const initialValues: ISignupForm = {
+const initialValues: SignupFormTypes = {
   email: "",
   password: "",
   confirmPassword: "",
@@ -24,13 +28,55 @@ const initialValues: ISignupForm = {
 };
 
 export default function Signup() {
+  const navigate = useNavigate();
+  const { signup } = useAuth();
+
   const [isPasswordVisible, setPasswordVisibility] = useState<boolean>(false);
   const [isConfirmPasswordVisible, setConfirmPasswordVisibility] =
     useState<boolean>(false);
 
+  async function handleSubmit(
+    values: SignupFormTypes,
+    actions: FormikHelpers<SignupFormTypes>
+  ) {
+    try {
+      const user = await signup(values.email.trim(), values.password.trim());
+      const userObj = {
+        email: values.email.trim(),
+        name: values.name.trim(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        verified: user?.user.emailVerified,
+        contact: user?.user.phoneNumber,
+        avatar: user?.user.photoURL,
+      };
+      await setDoc(doc(firestore, `users/${user?.user.uid}`), userObj);
+      sessionStorage.setItem("USER", JSON.stringify(userObj));
+      navigate("/dashboard");
+    } catch (err: any) {
+      switch (err.code) {
+        case AuthErrorCodes.USER_DELETED:
+          actions.setErrors({
+            email: "Invalid Credentials",
+            password: "Invalid Credentials",
+          });
+          break;
+        case AuthErrorCodes.USER_DISABLED:
+          actions.setFieldError("email", "Contact Customer Support");
+          break;
+        case AuthErrorCodes.EMAIL_EXISTS:
+          actions.setFieldError("email", "Account already exists. Login");
+          break;
+        default:
+          console.error({ err });
+          break;
+      }
+    }
+  }
+
   const formik = useFormik({
     initialValues,
-    onSubmit: () => {},
+    onSubmit: handleSubmit,
     validationSchema: SIGNUP_VALIDATION,
   });
 
@@ -48,7 +94,7 @@ export default function Signup() {
         </a>
         <div className={styles.leftContainer}>
           <img
-            src={"/images/signup.jpeg"}
+            src={"/images/signup.webp"}
             alt={
               "A sand color book with a title of Focus sitting a table with a graph pattern"
             }
@@ -57,7 +103,7 @@ export default function Signup() {
         </div>
         <div className={styles.rightContainer}>
           <div className={styles.topContainer}>
-            <h1 className={styles.title}>Weekly Planner</h1>
+            <h3 className={styles.title}>Weekly Planner</h3>
             <p className={styles.subtitle}>
               Become a member of the planners
               <br />
@@ -117,11 +163,6 @@ export default function Signup() {
             <Button title="Signup" type="submit" />
           </form>
           <div className={styles.bottomContainer}>
-            <div className={styles.orContainer}>
-              <div className={styles.orLine} />
-              <p className={styles.orText}>or</p>
-              <div className={styles.orLine} />
-            </div>
             <p>
               Already a Member?{" "}
               <a className={styles.signup} href={"/login"}>
