@@ -8,6 +8,7 @@ import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import PasswordIcon from "../../components/PasswordIcon";
 import TextInput from "../../components/TextInput";
+import Toast from "../../components/Toast";
 
 import { LOGIN_VALIDATION } from "../../constants/validations";
 import { useAuth } from "../../contexts/AuthProvider";
@@ -26,6 +27,7 @@ const initialValues: ILoginForm = {
 
 const Login: React.FC = () => {
   const [isPasswordVisible, setPasswordVisibility] = useState<boolean>(false);
+  const [showToast, setToastVisibility] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -61,7 +63,7 @@ const Login: React.FC = () => {
           });
           break;
         case AuthErrorCodes.USER_DISABLED:
-          actions.setFieldError("email", "Contact Customer Support");
+          setToastVisibility(true);
           break;
       }
     }
@@ -75,6 +77,9 @@ const Login: React.FC = () => {
 
   const togglePasswordVisibility = () =>
     setPasswordVisibility((prevState: boolean) => !prevState);
+
+  const toggleToast = () =>
+    setToastVisibility((prevState: boolean) => !prevState);
 
   return (
     <Layout title="Login" isMenuDisplayed={false}>
@@ -133,6 +138,14 @@ const Login: React.FC = () => {
           </div>
         </div>
       </div>
+      <Toast
+        description="Contact us at info@weeklyplanners.com"
+        position="bottom-right"
+        title="Unknown Error Occured"
+        type="danger"
+        visiblity={showToast}
+        onDismiss={toggleToast}
+      />
     </Layout>
   );
 };
