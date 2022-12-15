@@ -1,41 +1,42 @@
 .inputContainer {
-  border-bottom: 2px solid lightgray;
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
+    border-bottom: 2px solid lightgray;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
 }
 
 .inputContainer.error {
-  border-bottom-color: rgb(221, 44, 44);
+    border-bottom-color: rgb(221, 44, 44);
 }
 
 .error input::placeholder {
-  color: rgb(221, 44, 44);
+    color: rgb(221, 44, 44);
 }
 
 .error svg {
-  color: rgb(221, 44, 44);
+    color: rgb(221, 44, 44);
 }
 
 .inputContainer:focus-within,
 .inputContainer::after {
-  border-bottom: 2px solid rgb(18, 100, 100);
+    border-bottom: 2px solid rgb(18, 100, 100);
 }
 
 .input {
-  background-color: transparent;
-  border: none;
-  height: 50px;
-  width: 100%;
-  font-size: large;
+    background-color: transparent;
+    border: none;
+    height: 28px;
+    width: 100%;
+    font-size: medium
 }
 
 .multilineTextInput {
-  background-color: transparent;
-  border: none;
-  width: 100%;
-  font-size: large;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    font-size: medium;
+    resize: none;
 }
 
 .input:focus,
@@ -44,13 +45,15 @@
 .multilineTextInput:focus,
 .multilineTextInput:active,
 .multilineTextInput:focus-visible {
-  outline: none;
+    outline: none;
 }
 
 .inputError {
-  color: rgb(221, 44, 44);
-  margin: 6px 0px;
-  text-align: right;
-  font-weight: 500;
-  min-height: 25px;
+    color: rgb(221, 44, 44);
+    margin: 4px 0px 0px 0px;
+    padding: 0px;
+    text-align: right;
+    font-weight: 500;
+    font-size: small;
+    max-height: 10px;
 }
