@@ -1,0 +1,204 @@
+.headerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px 24px;
+    height: 100px;
+    box-shadow: rgba(149, 157, 165, 0.1) 0px 3px 18px;
+    transition: box-shadow 0.15s ease;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.headerInfoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.headerInfoContainer h3,
+.headerInfoContainer p {
+    margin: 0px;
+    padding: 0px;
+}
+
+.emailVerificationContainer {
+    display: flex;
+    column-gap: 12px;
+}
+
+.emailVerificationText {
+    cursor: pointer;
+    font-size: small;
+    font-weight: 500;
+    color: white;
+    background-color: brown;
+    width: 120px;
+    text-align: center;
+    align-self: center;
+    border-radius: 5px;
+    transition: background-color 0.15s ease;
+}
+
+.emailVerificationText:hover {
+    background-color: rgb(195, 37, 37);
+}
+
+.actionContainer {
+    display: flex;
+    column-gap: 24px;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.icon {
+    cursor: pointer;
+    color: gray;
+    transition: color 0.15s ease;
+}
+
+.emailIcon {
+    cursor: pointer;
+    color: red;
+    transition: color 0.15s ease;
+}
+
+.icon:hover {
+    color: #212121;
+}
+
+.emailIcon:hover {
+    color: rgb(174, 18, 18);
+}
+
+.daysContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.dayItem {
+    flex: 1;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    font-weight: 500;
+}
+
+.dayItem:last-child {
+    border-right: none
+}
+
+.dayContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 50px;
+}
+
+.dayText {
+    text-align: center;
+    margin: 0px;
+}
+
+.taskTitle {
+    font-weight: 500;
+    font-size: 14px;
+    margin: 4px 0px;
+}
+
+.taskDescription {
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    margin: 0px;
+    flex-wrap: wrap;
+}
+
+.taskCreation {
+    font-size: 12px;
+    color: #737373;
+    margin-bottom: 0px;
+}
+
+.taskItemContainer {
+    margin: 6px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.03);
+    transition: background-color 0.15s ease;
+    cursor: pointer;
+}
+
+.taskItemContainer.pending {
+    background-color: rgb(235, 196, 255);
+}
+
+.taskItemContainer.active {
+    background-color: rgb(144, 201, 208);
+}
+
+.taskItemContainer.completed {
+    background-color: rgb(144, 208, 144);
+}
+
+.taskItemContainer.blocked {
+    background-color: rgb(208, 144, 144);
+}
+
+.taskItemContainer:hover {
+    border: none;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.addTaskContainer {
+    min-height: calc(100vh - 151px);
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.addIcon {
+    color: gray;
+}
+
+.addTaskContainer:hover>* {
+    color: #212121;
+}
+
+.addText {
+    color: gray
+}
+
+.tasksContainer {
+    min-height: calc(100vh - 151px);
+    overflow-y: auto;
+}
+
+.addMoreTaskContainer {
+    border-bottom: 1px solid #EFEFEF;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    cursor: pointer;
+}
+
+.addMoreTaskContainer p {
+    margin: 0px;
+    padding: 0px;
+    color: gray;
+    transition: color 0.15s ease;
+    user-select: none;
+}
+
+.addMoreTaskContainer:hover p {
+    color: #212121;
+}
