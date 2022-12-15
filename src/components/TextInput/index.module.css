@@ -35,7 +35,8 @@
     background-color: transparent;
     border: none;
     width: 100%;
-    font-size: large;
+    font-size: medium;
+    resize: none;
 }
 
 .input:focus,

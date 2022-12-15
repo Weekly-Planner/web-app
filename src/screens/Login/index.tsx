@@ -1,4 +1,5 @@
 import { AuthErrorCodes } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import { FormikHelpers, useFormik } from "formik";
 import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
@@ -11,6 +12,7 @@ import TextInput from "../../components/TextInput";
 import { LOGIN_VALIDATION } from "../../constants/validations";
 import { useAuth } from "../../contexts/AuthProvider";
 import styles from "../../global/styles/Auth.module.css";
+import { firestore } from "../../services/firebase";
 
 interface ILoginForm {
   email: string;
@@ -32,9 +34,24 @@ const Login: React.FC = () => {
     actions: FormikHelpers<ILoginForm>
   ) => {
     try {
-      await login(values.email.trim(), values.password);
+      const user = await login(values.email.trim(), values.password);
+      if (!user) {
+        throw new Error(AuthErrorCodes.USER_DELETED);
+      }
+      const docRef = doc(firestore, "users", user.user.uid);
+      const docSnap = await getDoc(docRef);
+      if (!docSnap.exists()) {
+        throw new Error("firestore/document-not-found");
+      }
+      const userObj = docSnap.data();
+      sessionStorage.setItem("USER", JSON.stringify(userObj));
       navigate("/dashboard");
     } catch (err: any) {
+      console.error({ err });
+      if (err.message === "firestore/document-not-found") {
+        actions.setFieldError("email", "Contact Customer Support");
+        return;
+      }
       switch (err.code) {
         case AuthErrorCodes.USER_DELETED:
         case AuthErrorCodes.INVALID_PASSWORD:
@@ -45,9 +62,6 @@ const Login: React.FC = () => {
           break;
         case AuthErrorCodes.USER_DISABLED:
           actions.setFieldError("email", "Contact Customer Support");
-          break;
-        default:
-          console.error({ err });
           break;
       }
     }

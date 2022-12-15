@@ -9,9 +9,17 @@ import { useAuth } from "../../contexts/AuthProvider";
 import { firestore } from "../../services/firebase";
 import styles from "./index.module.css";
 
+export enum TaskStatus {
+  PENDING = "pending",
+  ACTIVE = "active",
+  COMPLETED = "completed",
+  BLOCKED = "blocked",
+}
+
 interface IAddTask {
   isVisible: boolean;
   onDismiss: () => void | Promise<void> | undefined;
+  onFetchTasks: () => void | Promise<void> | undefined;
   selectedDate: Moment | null;
 }
 
@@ -29,6 +37,7 @@ const AddTask: React.FC<IAddTask> = ({
   isVisible,
   onDismiss,
   selectedDate,
+  onFetchTasks,
 }) => {
   const { currentUser } = useAuth();
 
@@ -39,16 +48,22 @@ const AddTask: React.FC<IAddTask> = ({
     const taskObj = {
       title: values.title.trim(),
       description: values.description.trim(),
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      day: selectedDate,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      day: moment(selectedDate).toISOString(),
+      status: TaskStatus.PENDING,
     };
 
-    await addDoc(
-      collection(firestore, `users/${currentUser?.uid}/tasks`),
-      taskObj
-    );
-    onDismiss();
+    try {
+      await addDoc(
+        collection(firestore, `users/${currentUser?.uid}/tasks`),
+        taskObj
+      );
+      actions.resetForm();
+      onFetchTasks();
+    } catch (err) {
+      console.log({ err });
+    }
   }
 
   const formik = useFormik({
@@ -77,13 +92,14 @@ const AddTask: React.FC<IAddTask> = ({
                   : moment().format(DATE_TIME_FORMAT)}
               </h4>
             </div>
-            <form onSubmit={formik.handleSubmit}>
+            <form className={styles.form} onSubmit={formik.handleSubmit}>
               <TextInput
                 placeholder="Task Title"
                 name="title"
                 id="title"
                 onChange={formik.handleChange}
                 error={formik.errors.title}
+                value={formik.values.title}
               />
               <TextInput
                 placeholder="Task Description"
@@ -91,6 +107,7 @@ const AddTask: React.FC<IAddTask> = ({
                 id="description"
                 onChange={formik.handleChange}
                 error={formik.errors.description}
+                value={formik.values.description}
                 paragraph={3}
               />
               <Button title="Add" type={"submit"} />

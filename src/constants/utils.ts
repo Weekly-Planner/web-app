@@ -1,3 +1,4 @@
+import { DATE_TIME_FORMAT } from "./datetime";
 import moment, { Moment } from "moment";
 
 type TaskItemType = {
@@ -11,20 +12,6 @@ type DayItemType = {
   day: Moment;
   tasks: TaskItemType[];
 };
-const items = [0, 1];
-const fakeTaskItem = {
-  id: "0",
-  title: "Lorem Ipsum",
-  description:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  createdAt: moment(),
-};
-const fakeTasks = items.map((item) => {
-  return {
-    ...fakeTaskItem,
-    id: String(item),
-  };
-});
 
 export function getDays(): DayItemType[] {
   const days = [];
@@ -36,4 +23,22 @@ export function getDays(): DayItemType[] {
     });
   }
   return days;
+}
+
+export function generateData(tasks: any[]) {
+  const data = [];
+  for (let i = 0; i < 7; i++) {
+    const today = moment().add(i, "day");
+    const todayFormatted = moment(today).format(DATE_TIME_FORMAT);
+    data.push({
+      day: today,
+      tasks: tasks
+        .filter((task) => {
+          const taskDay = moment(task.day).format(DATE_TIME_FORMAT);
+          return todayFormatted === taskDay;
+        })
+        .sort((a, b) => (a.createdAt.toDate() > b.createdAt.toDate() ? 1 : -1)),
+    });
+  }
+  return data;
 }

@@ -1,4 +1,4 @@
-import { AuthErrorCodes, updateProfile } from "firebase/auth";
+import { AuthErrorCodes } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { FormikHelpers, useFormik } from "formik";
 import { useState } from "react";
@@ -11,7 +11,17 @@ import TextInput from "../../components/TextInput";
 import { SIGNUP_VALIDATION } from "../../constants/validations";
 import { useAuth } from "../../contexts/AuthProvider";
 import styles from "../../global/styles/Auth.module.css";
-import { auth, firestore } from "../../services/firebase";
+import { firestore } from "../../services/firebase";
+
+export type LocalUserType = {
+  email: string;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+  verified: boolean | undefined;
+  contact: string | null | undefined;
+  avatar: string | null | undefined;
+};
 
 type SignupFormTypes = {
   email: string;
@@ -41,7 +51,7 @@ export default function Signup() {
   ) {
     try {
       const user = await signup(values.email.trim(), values.password.trim());
-      const userObj = {
+      const userObj: LocalUserType = {
         email: values.email.trim(),
         name: values.name.trim(),
         createdAt: new Date(),
