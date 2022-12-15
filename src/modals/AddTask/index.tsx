@@ -1,9 +1,11 @@
 import { addDoc, collection } from "firebase/firestore";
 import { FormikHelpers, useFormik } from "formik";
 import moment, { Moment } from "moment";
+import { useState } from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import Button from "../../components/Button";
 import TextInput from "../../components/TextInput";
+import { ToastType } from "../../components/Toast";
 import { DATE_TIME_FORMAT } from "../../constants/datetime";
 import { useAuth } from "../../contexts/AuthProvider";
 import { firestore } from "../../services/firebase";
@@ -19,7 +21,7 @@ export enum TaskStatus {
 interface IAddTask {
   isVisible: boolean;
   onDismiss: () => void | Promise<void> | undefined;
-  onFetchTasks: () => void | Promise<void> | undefined;
+  onFetchTasks: (title: string) => void | Promise<void> | undefined;
   selectedDate: Moment | null;
 }
 
@@ -60,7 +62,7 @@ const AddTask: React.FC<IAddTask> = ({
         taskObj
       );
       actions.resetForm();
-      onFetchTasks();
+      onFetchTasks(taskObj.title);
     } catch (err) {
       console.log({ err });
     }

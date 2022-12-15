@@ -10,14 +10,17 @@ import {
   FiLogOut as LogoutIcon,
   FiSettings as SettingsIcon,
 } from "react-icons/fi";
+import Toast, { ToastType } from "../../components/Toast";
 import { DATE_TIME_FORMAT } from "../../constants/datetime";
 import { getTasks } from "../../constants/firebase";
+import { generateNotification } from "../../constants/utils";
 import { useAuth } from "../../contexts/AuthProvider";
 import AddTask from "../../modals/AddTask";
 import styles from "./index.module.css";
 
 export default function Dashboard() {
   const { currentUser, logout, localUser, verifyEmail } = useAuth();
+  const [notifications, setNotifications] = useState<ToastType[]>([]);
 
   const [addTaskModalVisibility, setAddTaskModalVisibility] =
     useState<boolean>(false);
@@ -38,11 +41,20 @@ export default function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function handleFetchTasks() {
+  async function handleFetchTasks(title: string) {
     try {
       toggleAddTaskModalVisibility();
       const result = await getTasks(currentUser?.uid);
       setTasks(result);
+      const notification = generateNotification(
+        "success",
+        "Task Added",
+        `${title} has been added to your calendar.`
+      );
+      setNotifications((prevState: ToastType[]) => [
+        ...prevState,
+        notification,
+      ]);
     } catch (err) {
       console.log({ err });
     }
@@ -101,11 +113,11 @@ export default function Dashboard() {
                     <p className={styles.addText}>Add a task</p>
                   </div>
                 ) : (
-                  <div
-                    className={styles.tasksContainer}
-                    onClick={() => handleAddTask(moment(item.day))}
-                  >
-                    <div className={styles.addMoreTaskContainer}>
+                  <div className={styles.tasksContainer}>
+                    <div
+                      className={styles.addMoreTaskContainer}
+                      onClick={() => handleAddTask(moment(item.day))}
+                    >
                       <p>+ Add Task</p>
                     </div>
                     {item.tasks.map((task: any) => {
@@ -123,7 +135,7 @@ export default function Dashboard() {
                           </p>
                           <p className={styles.taskCreation}>
                             Created{" "}
-                            {moment(task.createdAt?.toDate()).fromNow(true)}
+                            {moment(task.createdAt?.toDate()).fromNow(false)}
                           </p>
                         </div>
                       );
@@ -134,12 +146,17 @@ export default function Dashboard() {
             );
           })}
       </div>
-
       <AddTask
         isVisible={addTaskModalVisibility}
         onDismiss={toggleAddTaskModalVisibility}
         selectedDate={selectedDate}
         onFetchTasks={handleFetchTasks}
+      />
+      <Toast
+        notifications={notifications}
+        autoDelete={true}
+        autoDeleteTime={3000}
+        position={"bottom-right"}
       />
     </div>
   );
@@ -163,27 +180,33 @@ const MenuBar: React.FC<IMenuBar> = ({
   onClickVerifyEmail,
 }) => {
   return (
-    <div className={styles.headerContainer}>
-      <div className={styles.headerInfoContainer}>
-        <h3>Weekly Planner</h3>
-        <p>{nameOrEmail}</p>
-      </div>
-      <div className={styles.actionContainer}>
-        {isEmailVerified ? null : (
-          <AiOutlineMail
-            onClick={onClickVerifyEmail}
+    <>
+      <div className={styles.headerContainer}>
+        <div className={styles.headerInfoContainer}>
+          <h3>Weekly Planner</h3>
+          <p>{nameOrEmail}</p>
+        </div>
+        <div className={styles.actionContainer}>
+          {isEmailVerified ? null : (
+            <AiOutlineMail
+              onClick={onClickVerifyEmail}
+              size={24}
+              className={styles.emailIcon}
+            />
+          )}
+          <InfoIcon onClick={onClickInfo} size={24} className={styles.icon} />
+          <SettingsIcon
+            onClick={onClickSettings}
             size={24}
-            className={styles.emailIcon}
+            className={styles.icon}
           />
-        )}
-        <InfoIcon onClick={onClickInfo} size={24} className={styles.icon} />
-        <SettingsIcon
-          onClick={onClickSettings}
-          size={24}
-          className={styles.icon}
-        />
-        <LogoutIcon onClick={onClickLogout} size={24} className={styles.icon} />
+          <LogoutIcon
+            onClick={onClickLogout}
+            size={24}
+            className={styles.icon}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };

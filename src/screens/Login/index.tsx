@@ -8,7 +8,8 @@ import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import PasswordIcon from "../../components/PasswordIcon";
 import TextInput from "../../components/TextInput";
-import Toast from "../../components/Toast";
+import Toast, { ToastType } from "../../components/Toast";
+import { generateNotification } from "../../constants/utils";
 
 import { LOGIN_VALIDATION } from "../../constants/validations";
 import { useAuth } from "../../contexts/AuthProvider";
@@ -27,9 +28,10 @@ const initialValues: ILoginForm = {
 
 const Login: React.FC = () => {
   const [isPasswordVisible, setPasswordVisibility] = useState<boolean>(false);
-  const [showToast, setToastVisibility] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
+
+  const [notifications, setNotifications] = useState<ToastType[]>([]);
 
   const handleSubmit = async (
     values: ILoginForm,
@@ -63,7 +65,15 @@ const Login: React.FC = () => {
           });
           break;
         case AuthErrorCodes.USER_DISABLED:
-          setToastVisibility(true);
+          const notification = generateNotification(
+            "error",
+            "Account disabled",
+            "Your account has been disabled due to not following guidelines. Kindly, contact customer support at cs@weeklyplanners.com"
+          );
+          setNotifications((prevState: ToastType[]) => [
+            ...prevState,
+            notification,
+          ]);
           break;
       }
     }
@@ -77,9 +87,6 @@ const Login: React.FC = () => {
 
   const togglePasswordVisibility = () =>
     setPasswordVisibility((prevState: boolean) => !prevState);
-
-  const toggleToast = () =>
-    setToastVisibility((prevState: boolean) => !prevState);
 
   return (
     <Layout title="Login" isMenuDisplayed={false}>
@@ -139,12 +146,10 @@ const Login: React.FC = () => {
         </div>
       </div>
       <Toast
-        description="Contact us at info@weeklyplanners.com"
-        position="bottom-right"
-        title="Unknown Error Occured"
-        type="danger"
-        visiblity={showToast}
-        onDismiss={toggleToast}
+        notifications={notifications}
+        position={"bottom-right"}
+        autoDelete={true}
+        autoDeleteTime={5000}
       />
     </Layout>
   );

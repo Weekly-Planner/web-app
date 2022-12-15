@@ -39,6 +39,9 @@
     position: relative;
     pointer-events: auto;
     overflow: hidden;
+    margin: 0 0 6px;
+    padding: 30px;
+    margin-bottom: 15px;
     width: 300px;
     max-height: 100px;
     border-radius: 3px 3px 3px 3px;
@@ -47,8 +50,6 @@
     opacity: .9;
     background-position: 15px;
     background-repeat: no-repeat;
-    display: flex;
-    justify-content: space-between;
 }
 
 .notification:hover {
@@ -61,44 +62,60 @@
     font-weight: 700;
     font-size: 16px;
     text-align: left;
-    margin-top: 0;
-    margin-bottom: 6px;
-    /* width: 300px; */
+    margin: 0;
 }
 
 .message {
     margin: 0;
     text-align: left;
-    height: 18px;
-    margin-left: -1px;
-    overflow: hidden;
+    margin-top: 6px;
+    font-size: small;
     text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .image {
-    float: left;
-    margin-right: 15px;
+    margin-right: 16px;
+    display: flex;
 }
 
 .image img {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
 }
 
 .toast {
-    height: 50px;
-    /* width: 365px; */
     color: #fff;
     padding: 16px;
+    display: flex;
+    width: 350px;
+    border-radius: 6px;
+    justify-content: flex-start;
+}
+
+.content {
+    flex: 1;
+}
+
+.closeIcon {
+    color: rgba(255, 255, 255, 0.5);
+    margin-right: 12px;
+    cursor: pointer;
+    transition: color 0.15s ease;
+}
+
+.closeIcon:hover {
+    color: rgba(255, 255, 255, 1);
+}
+
+.actionHeaderContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
 }
 
 .success {
     background-color: #5cb85c;
-}
-
-.danger {
-    background-color: #d9534f;
 }
 
 .info {
@@ -107,6 +124,10 @@
 
 .warning {
     background-color: #f0ad4e;
+}
+
+.error {
+    background-color: #d9534f;
 }
 
 @keyframes toast-in-right {

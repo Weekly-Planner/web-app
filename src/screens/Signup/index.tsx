@@ -8,6 +8,8 @@ import Button from "../../components/Button";
 import Layout from "../../components/Layout";
 import PasswordIcon from "../../components/PasswordIcon";
 import TextInput from "../../components/TextInput";
+import Toast, { ToastType } from "../../components/Toast";
+import { generateNotification } from "../../constants/utils";
 import { SIGNUP_VALIDATION } from "../../constants/validations";
 import { useAuth } from "../../contexts/AuthProvider";
 import styles from "../../global/styles/Auth.module.css";
@@ -38,6 +40,7 @@ const initialValues: SignupFormTypes = {
 };
 
 export default function Signup() {
+  const [notifications, setNotifications] = useState<ToastType[]>([]);
   const navigate = useNavigate();
   const { signup } = useAuth();
 
@@ -72,7 +75,15 @@ export default function Signup() {
           });
           break;
         case AuthErrorCodes.USER_DISABLED:
-          actions.setFieldError("email", "Contact Customer Support");
+          const notification = generateNotification(
+            "error",
+            "Account disabled",
+            "Your account has been disabled due to not following guidelines. Kindly, contact customer support at cs@weeklyplanners.com"
+          );
+          setNotifications((prevState: ToastType[]) => [
+            ...prevState,
+            notification,
+          ]);
           break;
         case AuthErrorCodes.EMAIL_EXISTS:
           actions.setFieldError("email", "Account already exists. Login");
@@ -182,6 +193,12 @@ export default function Signup() {
           </div>
         </div>
       </div>
+      <Toast
+        notifications={notifications}
+        position={"bottom-right"}
+        autoDelete={true}
+        autoDeleteTime={5000}
+      />
     </Layout>
   );
 }

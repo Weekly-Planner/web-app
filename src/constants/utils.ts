@@ -1,5 +1,7 @@
 import { DATE_TIME_FORMAT } from "./datetime";
 import moment, { Moment } from "moment";
+import { nanoid } from "nanoid";
+import { ToastType } from "../components/Toast";
 
 type TaskItemType = {
   id: string;
@@ -41,4 +43,19 @@ export function generateData(tasks: any[]) {
     });
   }
   return data;
+}
+
+type NotificationType = "success" | "info" | "warning" | "error";
+export function generateNotification(
+  type: NotificationType,
+  title: string,
+  description: string
+): ToastType {
+  return {
+    id: nanoid(),
+    title,
+    description,
+    icon: `/icons/${type}.svg`,
+    type,
+  };
 }
