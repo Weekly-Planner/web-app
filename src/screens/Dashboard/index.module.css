@@ -1,3 +1,8 @@
+.container {
+    overflow: hidden;
+    max-height: 100vh;
+}
+
 .headerContainer {
     display: flex;
     flex-direction: row;
@@ -64,7 +69,7 @@
 }
 
 .icon:hover {
-    color: #212121;
+    color: black;
 }
 
 .emailIcon:hover {
@@ -103,7 +108,9 @@
 .taskTitle {
     font-weight: 500;
     font-size: 14px;
-    margin: 4px 0px;
+    padding: 4px 0px;
+    margin: 0px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .taskDescription {
@@ -116,10 +123,11 @@
     -webkit-box-orient: vertical;
     margin: 0px;
     flex-wrap: wrap;
+    padding-top: 6px;
 }
 
 .taskCreation {
-    font-size: 12px;
+    font-size: 10px;
     color: #737373;
     margin-bottom: 0px;
 }
@@ -169,7 +177,7 @@
 }
 
 .addTaskContainer:hover>* {
-    color: #212121;
+    color: black;
 }
 
 .addText {
@@ -178,7 +186,11 @@
 
 .tasksContainer {
     min-height: calc(100vh - 151px);
-    overflow-y: auto;
+}
+
+.taskListContainer {
+    max-height: calc(100vh - 200px);
+    overflow-y: scroll;
 }
 
 .addMoreTaskContainer {
@@ -200,5 +212,36 @@
 }
 
 .addMoreTaskContainer:hover p {
-    color: #212121;
+    color: black;
+}
+
+.tagsContainer {
+    display: flex;
+    column-gap: 6px;
+    margin: 12px 0px;
+}
+
+.tag {
+    margin: 0px;
+    font-size: 10px;
+    width: fit-content;
+    padding: 2px 4px;
+    border-radius: 4px;
+    background-color: white;
+    text-transform: uppercase;
+}
+
+.high {
+    background-color: rgb(192, 38, 38);
+    color: white;
+}
+
+.medium {
+    background-color: rgb(192, 161, 38);
+    color: white;
+}
+
+.low {
+    background-color: rgb(16, 124, 174);
+    color: white;
 }

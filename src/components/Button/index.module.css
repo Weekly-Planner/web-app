@@ -1,17 +1,25 @@
+.button {
+    height: 50px;
+    background-color: rgb(18, 100, 100);
+    border: none;
+    border-radius: 6px;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: large;
+    letter-spacing: 2px;
+    cursor: pointer;
+    padding: 0px 16px;
+    color: white;
+}
+
 .primary {
-  height: 50px;
-  background-color: rgb(18, 100, 100);
-  border: none;
-  border-radius: 6px;
-  text-transform: uppercase;
-  font-weight: 500;
-  font-size: large;
-  letter-spacing: 2px;
-  cursor: pointer;
-  padding: 0px 16px;
-  color: white;
+    background-color: rgb(18, 100, 100);
+}
+
+.disabled {
+    background-color: gray;
 }
 
 .primary:hover {
-  background-color: rgb(24, 114, 114);
+    background-color: rgb(24, 114, 114);
 }

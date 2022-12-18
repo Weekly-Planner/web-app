@@ -23,6 +23,7 @@ export type LocalUserType = {
   verified: boolean | undefined;
   contact: string | null | undefined;
   avatar: string | null | undefined;
+  subscription: "free" | "premium" | "enterprise";
 };
 
 type SignupFormTypes = {
@@ -62,7 +63,9 @@ export default function Signup() {
         verified: user?.user.emailVerified,
         contact: user?.user.phoneNumber,
         avatar: user?.user.photoURL,
+        subscription: "free",
       };
+
       await setDoc(doc(firestore, `users/${user?.user.uid}`), userObj);
       sessionStorage.setItem("USER", JSON.stringify(userObj));
       navigate("/dashboard");

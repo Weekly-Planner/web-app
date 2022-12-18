@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { deleteDoc, doc } from "firebase/firestore";
 import moment, { Moment } from "moment";
 import React, { useEffect, useState } from "react";
 import {
@@ -13,19 +14,27 @@ import {
 import Toast, { ToastType } from "../../components/Toast";
 import { DATE_TIME_FORMAT } from "../../constants/datetime";
 import { getTasks } from "../../constants/firebase";
-import { generateNotification } from "../../constants/utils";
+import {
+  DayItemType,
+  generateNotification,
+  NotificationType,
+  TaskItemType,
+} from "../../constants/utils";
 import { useAuth } from "../../contexts/AuthProvider";
-import AddTask from "../../modals/AddTask";
+import TaskDetails, { TaskActions } from "../../modals/TaskDetails";
+import { firestore } from "../../services/firebase";
 import styles from "./index.module.css";
 
 export default function Dashboard() {
   const { currentUser, logout, localUser, verifyEmail } = useAuth();
   const [notifications, setNotifications] = useState<ToastType[]>([]);
 
-  const [addTaskModalVisibility, setAddTaskModalVisibility] =
+  const [taskDetailsModalVisibility, setTaskDetailsModalVisibility] =
     useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Moment | null>(null);
-  const [tasks, setTasks] = useState<any[]>([]);
+  const [tasks, setTasks] = useState<DayItemType[]>([]);
+  const [selectedTask, setSelectedTask] = useState<TaskItemType | null>();
+  const [taskAction, setTaskAction] = useState<TaskActions>(TaskActions.ADD);
 
   useEffect(() => {
     async function fetchTasks() {
@@ -41,34 +50,71 @@ export default function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function handleFetchTasks(title: string) {
+  async function handleFetchTasks(title: string, action: TaskActions) {
     try {
       toggleAddTaskModalVisibility();
       const result = await getTasks(currentUser?.uid);
       setTasks(result);
-      const notification = generateNotification(
-        "success",
-        "Task Added",
-        `${title} has been added to your calendar.`
-      );
-      setNotifications((prevState: ToastType[]) => [
-        ...prevState,
-        notification,
-      ]);
+
+      showNotification(action, title);
     } catch (err) {
       console.log({ err });
     }
+  }
+
+  function showNotification(
+    action: TaskActions,
+    taskTitle?: string | undefined
+  ) {
+    const type: NotificationType =
+      action === TaskActions.ADD ? "success" : "info";
+    const title: string =
+      action === TaskActions.ADD ? "Task Added" : "Task Updated";
+    const description: string = `${taskTitle} has been ${
+      action === TaskActions.ADD ? "added" : "updated"
+    } on your calendar.`;
+    const notification = generateNotification(type, title, description);
+    setNotifications((prevState: ToastType[]) => [...prevState, notification]);
   }
 
   async function handleLogout() {
     await logout();
   }
 
+  async function handleTaskDelete(id: string | undefined) {
+    try {
+      if (!id) {
+        throw new Error("wp/no-such-id");
+      }
+      toggleAddTaskModalVisibility();
+      await deleteDoc(doc(firestore, `users/${currentUser?.uid}/tasks/${id}`));
+      const result = await getTasks(currentUser?.uid);
+      setTasks(result);
+      const notification = generateNotification(
+        "warning",
+        "Task Deleted",
+        "Selected task has been selected from the calendar."
+      );
+      setNotifications((prevState: ToastType[]) => [
+        ...prevState,
+        notification,
+      ]);
+    } catch (err) {}
+  }
+
   function toggleAddTaskModalVisibility() {
-    if (addTaskModalVisibility) {
+    if (taskDetailsModalVisibility) {
       setSelectedDate(null);
+      setSelectedTask(null);
+      setTaskAction(TaskActions.ADD);
     }
-    setAddTaskModalVisibility((prevState: boolean) => !prevState);
+    setTaskDetailsModalVisibility((prevState: boolean) => !prevState);
+  }
+
+  function showTaskDetailsModal(item: any) {
+    setTaskAction(TaskActions.EDIT);
+    setSelectedTask(item);
+    setTaskDetailsModalVisibility((prevState: boolean) => !prevState);
   }
 
   function handleAddTask(date: Moment) {
@@ -79,14 +125,23 @@ export default function Dashboard() {
   async function handleVerifyEmail() {
     try {
       await verifyEmail();
-      alert(`Email verificatin sent at ${currentUser?.email}`);
+      const email = currentUser?.email;
+      const notification = generateNotification(
+        "success",
+        "Verification Email Sent",
+        `Kindly, check your email address (${email}) for the verification email.`
+      );
+      setNotifications((prevState: ToastType[]) => [
+        ...prevState,
+        notification,
+      ]);
     } catch (err) {
       console.log({ err });
     }
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       <MenuBar
         nameOrEmail={localUser?.name ?? currentUser?.email ?? ""}
         isEmailVerified={currentUser?.emailVerified ?? false}
@@ -97,7 +152,7 @@ export default function Dashboard() {
       />
       <div className={styles.daysContainer}>
         {tasks &&
-          tasks.map((item) => {
+          tasks.map((item: DayItemType) => {
             const formatted = moment(item.day).format(DATE_TIME_FORMAT);
             return (
               <div key={formatted} className={styles.dayItem}>
@@ -120,37 +175,54 @@ export default function Dashboard() {
                     >
                       <p>+ Add Task</p>
                     </div>
-                    {item.tasks.map((task: any) => {
-                      return (
-                        <div
-                          key={task.id}
-                          className={classNames(
-                            styles.taskItemContainer,
-                            styles[task.status]
-                          )}
-                        >
-                          <p className={styles.taskTitle}>{task.title}</p>
-                          <p className={styles.taskDescription}>
-                            {task.description}
-                          </p>
-                          <p className={styles.taskCreation}>
-                            Created{" "}
-                            {moment(task.createdAt?.toDate()).fromNow(false)}
-                          </p>
-                        </div>
-                      );
-                    })}
+                    <div className={styles.taskListContainer}>
+                      {item.tasks.map((task: TaskItemType) => {
+                        return (
+                          <div
+                            key={task.id}
+                            className={classNames(
+                              styles.taskItemContainer,
+                              styles[task.status]
+                            )}
+                            onClick={() => showTaskDetailsModal(task)}
+                          >
+                            <p className={styles.taskTitle}>{task.title}</p>
+                            <p className={styles.taskDescription}>
+                              {task.description}
+                            </p>
+                            <div className={styles.tagsContainer}>
+                              <p
+                                className={classNames(
+                                  styles.tag,
+                                  styles[task.priority]
+                                )}
+                              >
+                                {task.priority}
+                              </p>
+                              <p className={styles.tag}>{task.category}</p>
+                            </div>
+                            <p className={styles.taskCreation}>
+                              Created{" "}
+                              {moment(task.createdAt?.toDate()).fromNow(false)}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 )}
               </div>
             );
           })}
       </div>
-      <AddTask
-        isVisible={addTaskModalVisibility}
+      <TaskDetails
+        isVisible={taskDetailsModalVisibility}
         onDismiss={toggleAddTaskModalVisibility}
         selectedDate={selectedDate}
         onFetchTasks={handleFetchTasks}
+        selectedTask={selectedTask ?? null}
+        action={taskAction}
+        handleTaskDelete={handleTaskDelete}
       />
       <Toast
         notifications={notifications}

@@ -2,30 +2,24 @@ import { DATE_TIME_FORMAT } from "./datetime";
 import moment, { Moment } from "moment";
 import { nanoid } from "nanoid";
 import { ToastType } from "../components/Toast";
+import { Timestamp } from "firebase/firestore";
 
-type TaskItemType = {
+export type TaskItemType = {
   id: string;
   title: string;
   description: string;
-  createdAt: Moment | string;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
+  category: string;
+  day: Moment | string;
+  priority: string;
+  status: string;
 };
 
-type DayItemType = {
+export type DayItemType = {
   day: Moment;
   tasks: TaskItemType[];
 };
-
-export function getDays(): DayItemType[] {
-  const days = [];
-  for (let i = 0; i < 7; i++) {
-    const today = moment().add(i, "day");
-    days.push({
-      day: today,
-      tasks: [],
-    });
-  }
-  return days;
-}
 
 export function generateData(tasks: any[]) {
   const data = [];
@@ -45,16 +39,16 @@ export function generateData(tasks: any[]) {
   return data;
 }
 
-type NotificationType = "success" | "info" | "warning" | "error";
+export type NotificationType = "success" | "info" | "warning" | "error";
 export function generateNotification(
   type: NotificationType,
   title: string,
-  description: string
+  description?: string | undefined
 ): ToastType {
   return {
     id: nanoid(),
     title,
-    description,
+    description: description ?? "",
     icon: `/icons/${type}.svg`,
     type,
   };

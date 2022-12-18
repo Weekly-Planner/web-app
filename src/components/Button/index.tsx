@@ -7,13 +7,25 @@ interface IButton {
   onClick?: () => void | Promise<void> | undefined;
   type?: "button" | "submit" | "reset" | undefined;
   className?: string | undefined;
+  disabled?: boolean | undefined;
 }
 
-const Button: React.FC<IButton> = ({ title, onClick, type, className }) => {
+const Button: React.FC<IButton> = ({
+  title,
+  onClick,
+  type,
+  className,
+  disabled,
+}) => {
   return (
     <button
+      disabled={disabled}
       onClick={onClick}
-      className={classNames(styles.primary, className)}
+      className={classNames(
+        className,
+        styles.button,
+        styles[disabled ? "disabled" : "primary"]
+      )}
       type={type}
     >
       {title}

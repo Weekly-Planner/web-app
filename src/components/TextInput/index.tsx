@@ -18,7 +18,11 @@ const TextInput: React.FC<PropsWithChildren<ITextInput>> = (props) => {
         })}
       >
         {props.paragraph && props.paragraph > 0 ? (
-          <textarea {...props} rows={6} className={styles.multilineTextInput} />
+          <textarea
+            {...props}
+            rows={props.paragraph}
+            className={styles.multilineTextInput}
+          />
         ) : (
           <input {...props} className={styles.input} />
         )}

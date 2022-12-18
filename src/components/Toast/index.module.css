@@ -5,6 +5,10 @@
     z-index: 999999
 }
 
+.container.warning p {
+    color: black;
+}
+
 .top-right {
     top: 12px;
     right: 12px;
@@ -123,7 +127,7 @@
 }
 
 .warning {
-    background-color: #f0ad4e;
+    background-color: #f4c92d;
 }
 
 .error {

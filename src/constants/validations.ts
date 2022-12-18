@@ -14,8 +14,10 @@ export const SIGNUP_VALIDATION = Yup.object().shape({
   name: Yup.string().required("Full name is required"),
 });
 
-export const ADD_TASK_VALIDATION = Yup.object().shape({
+export const TASK_VALIDATION = Yup.object().shape({
   title: Yup.string().required("Title is required"),
   description: Yup.string().required("Description is required"),
-  // day: Yup.string().required("Select a day from the dropdown"),
+  priority: Yup.string().required("Priority is required"),
+  category: Yup.string().required("Cateogry is required"),
+  status: Yup.string().required("Status is required"),
 });
