@@ -1,13 +1,23 @@
 import React, { PropsWithChildren } from "react";
 import { Helmet } from "react-helmet-async";
+import { useAuth } from "../../contexts/AuthProvider";
 import styles from "./index.module.css";
 
-const routes = [
+const common = [
   { id: "features", title: "Features", path: "/features" },
   { id: "pricing", title: "Pricing", path: "/pricing" },
   { id: "about", title: "About Us", path: "/about" },
+];
+
+const nonAuthenticated = [
+  ...common,
   { id: "signup", title: "Signup", path: "/signup" },
   { id: "login", title: "Login", path: "/login" },
+];
+
+const authenticated = [
+  ...common,
+  { id: "dashboard", title: "Dashboard", path: "/dashboard" },
 ];
 
 interface ILayout extends PropsWithChildren {
@@ -20,6 +30,9 @@ const Layout: React.FC<ILayout> = ({
   title,
   isMenuDisplayed = true,
 }) => {
+  const { currentUser } = useAuth();
+  const routes = currentUser ? authenticated : nonAuthenticated;
+
   return (
     <>
       <Helmet>
