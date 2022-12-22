@@ -1,51 +1,96 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  height: 600px;
-  background-image: url("/public/images/banner.jpeg");
-  background-repeat: no-repeat;
-  background-size: cover;
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    background-image: url("/public/images/banner.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .contentContainer {
-  background-color: rgba(0, 0, 0, 0.4);
-  height: inherit;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .contentContainer h1 {
-  color: white;
-  margin: 0px;
-  font-size: xxx-large;
-  text-transform: uppercase;
+    color: white;
+    margin: 0px;
+    font-size: xxx-large;
+    text-transform: uppercase;
 }
 
 .contentContainer p {
-  color: white;
-  font-size: larger;
-  margin: 0px;
+    color: white;
+    font-size: larger;
+    margin: 0px;
 }
 
 .contentContainer a {
-  text-decoration: none;
-  margin-top: 32px;
-  color: white;
-  font-weight: 600;
-  text-transform: uppercase;
-  background-color: transparent;
-  border: 2px solid #256f96;
-  padding: 12px 32px;
-  letter-spacing: 1px;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 6px;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 12px;
-  transition: border 0.15s ease;
+    text-decoration: none;
+    margin-top: 32px;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: 2px solid #256f96;
+    padding: 12px 32px;
+    letter-spacing: 1px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 12px;
+    transition: border 0.15s ease;
 }
 
 .contentContainer a:hover {
-  border: 2px solid #234d64;
+    border: 2px solid #234d64;
+}
+
+.strategiesContainer {
+    padding: 32px 64px;
+}
+
+.strategiesContainer h1 {
+    text-align: center;
+    margin-bottom: 64px;
+    font-size: xx-large;
+}
+
+.strategiesListContainer {
+    display: flex;
+    justify-content: space-evenly;
+    column-gap: 8px;
+}
+
+.strategiesItemContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    height: 220px;
+}
+
+.strategiesItemContainer h3,
+.strategiesItemContainer p {
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+
+.strategiesItemContainer div {
+    width: 70%;
+}
+
+.strategiesItemContainer div p {
+    margin-top: 6px;
+}
+
+.strategiesItemContainer p {
+    font-size: medium;
 }

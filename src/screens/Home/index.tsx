@@ -4,21 +4,24 @@ import styles from "./index.module.css";
 const strategies = [
   {
     id: "1",
-    title: "1. Become a Planner",
+    title: "Organize the next 7 days",
     description:
-      "Check out our trail version to ensure Weekly Planner is the best planner for you.",
+      "Add tasks for your next 7 days. Don't worry, you're not allowed to go forward in time and set tasks for the 8th day.",
+    image: "/icons/calendar.svg",
   },
   {
     id: "2",
-    title: "2. Organize the next 7 days",
+    title: "Avoid distractions",
     description:
-      "Add tasks for your next 7 days. Don't worry, you're not allowed to go forward in time and set tasks for the 8th day.",
+      "Using our extension or mobile app, avoid distractions by excluding websites or mobile applications while going through a task.",
+    image: "/icons/stop.svg",
   },
   {
     id: "3",
-    title: "3. Avoid distractions",
+    title: "Achieve your goals",
     description:
-      "Using our extension or mobile app, avoid distractions by excluding websites or mobile applications while going through a task.",
+      "Update your goals to enhance productivity, move forward in the leaderboard and earn points to gain rewards.",
+    image: "/icons/target.svg",
   },
 ];
 
@@ -26,16 +29,26 @@ export default function Home() {
   return (
     <Layout title="Weekly Planner | Plan yourself per week">
       <Banner />
-      <section>
-        <h1>How it works</h1>
-        {strategies.map((strategy) => {
-          return (
-            <div key={strategy.id}>
-              <h2>{strategy.title}</h2>
-              <p>{strategy.description}</p>
-            </div>
-          );
-        })}
+      <section id="hiw" className={styles.strategiesContainer}>
+        <h1>HOW IT WORKS</h1>
+        <div className={styles.strategiesListContainer}>
+          {strategies.map((strategy) => {
+            return (
+              <div key={strategy.id} className={styles.strategiesItemContainer}>
+                <img
+                  src={strategy.image}
+                  alt={strategy.title}
+                  height={50}
+                  width={50}
+                />
+                <div>
+                  <h3>{strategy.title}</h3>
+                  <p>{strategy.description}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </section>
     </Layout>
   );
