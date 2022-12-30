@@ -1,0 +1,19 @@
+[{
+        "id": "1",
+        "title": "Organize the next 7 days",
+        "description": "Add tasks for your next 7 days. Don't worry, you're not allowed to go forward in time and set tasks for the 8th day.",
+        "image": "/icons/calendar.svg"
+    },
+    {
+        "id": "2",
+        "title": "Avoid distractions",
+        "description": "Using our extension or mobile app, avoid distractions by excluding websites or mobile applications while going through a task.",
+        "image": "/icons/stop.svg"
+    },
+    {
+        "id": "3",
+        "title": "Achieve your goals",
+        "description": "Update your goals to enhance productivity, move forward in the leaderboard and earn points to gain rewards.",
+        "image": "/icons/target.svg"
+    }
+]
