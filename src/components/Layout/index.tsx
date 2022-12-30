@@ -5,7 +5,7 @@ import styles from "./index.module.css";
 
 const common = [
   { id: "working", title: "How it Works", path: "#hiw" },
-  { id: "features", title: "Features", path: "/features" },
+  { id: "features", title: "Features", path: "#features" },
   { id: "pricing", title: "Pricing", path: "/pricing" },
   { id: "about", title: "About Us", path: "/about" },
 ];
