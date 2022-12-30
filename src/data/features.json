@@ -1,0 +1,50 @@
+[{
+        "id": "goal-management",
+        "title": "Goal Management",
+        "subtitle": "Organize your next 7 days with tasks per-day so you can aim towards achieving your goal per week.",
+        "description": "Goal management is the process of setting, planning, and tracking progress towards specific objectives. It is an essential skill for anyone looking to achieve success in their personal or professional life. By setting clear goals, you can stay motivated and focused on what you want to achieve, and track your progress towards achieving those goals. We offer a range of tools and resources to help you effectively manage your goals. Whether you're looking to improve your fitness, boost your career, or achieve any other personal or professional objectives, our goal management resources can help you get there.",
+        "image": "/images/goals.svg"
+    },
+    {
+        "id": "yoga-mode",
+        "title": "Yoga Mode",
+        "subtitle": "Yoga mode limits your interaction on the web or mobile which allows you to focus on your tasks to achieve your goals.",
+        "description": "Our new \"Yoga Mode\" feature is designed to help users stay focused and avoid distractions while working on a task. When activated, Yoga Mode blocks distracting websites, allowing users to fully concentrate on the task at hand. This feature is especially useful for those who struggle with staying focused and need a little extra help to get through the workday. Whether you're working on an important project, studying for an exam, or just trying to get through your daily to-do list, Yoga Mode can help you stay on track and avoid distractions.",
+        "image": "/images/yoga-mode.svg"
+    },
+    {
+        "id": "void-bucket",
+        "title": "Void Bucket",
+        "subtitle": "Unable to find a proper time for a task? No problem, we introduce the Void Bucket which automatically assigns your tasks between gaps of your current tasks.",
+        "description": "Our Void Bucket feature is a unique tool designed to help users stay organized and on top of their to-do list. It is a place where users can store tasks that don't fit into a specific goal or project. These tasks might be small, one-off tasks that don't warrant their own project, or they might be tasks that don't fit into any existing project. Regardless of the reason, the Void Bucket is a great place to store these tasks so they don't get lost or forgotten. One of the most useful features of the Void Bucket is its ability to automatically fit tasks into the gaps between other tasks. This helps users make the most of their time and ensures they are always working on something productive.",
+        "image": "/images/void-bucket.svg"
+    },
+    {
+        "id": "projects",
+        "title": "Projects",
+        "subtitle": "A single project is summed up of multiple goals and a goal of multiple tasks. This allows distributing, filtering, measuring and achieving your projects in time.",
+        "description": "Our new project management feature allows users to create projects with multiple goals and break those goals down into smaller tasks. This helps users stay organized and focused on what needs to be done to achieve their objectives. It allows users to see how their work fits into the larger project and stay on track with their tasks. Whether you're working on a small personal project or a large project, our project management feature can help you stay organized and achieve your goals.",
+        "image": "/images/project.svg"
+    },
+    {
+        "id": "statistics",
+        "title": "Statistics",
+        "subtitle": "Statistics allow you to measure your pace towards achieving your projects.",
+        "description": "Our Statistics feature includes a range of tools to help users measure and track their productivity. The Productivity Graph allows users to visualize their productivity over time, helping them identify patterns and trends that may be affecting their work. The Achievement Scale allows users to measure the level of achievement for their goals, helping them stay motivated and on track. The Activity Monitor allows users to track how updates are taking place, giving them a clear overview of their progress. Finally, the Distraction Graph helps users measure how distracted they are during a task, helping them identify and eliminate distractions that may be hindering their productivity.",
+        "image": "/images/statistics.svg"
+    },
+    {
+        "id": "get-notified",
+        "title": "Get Notified",
+        "subtitle": "We notify you 30 & 15 minutes earlier for the upcoming task so you can finish with the current one. Update your tasks just with a single click, and get a notification of the gaps between tasks.",
+        "description": "Our task management feature includes a range of tools to help users stay organized and on top of their to-do list. One useful feature is the ability to receive notifications when a task is updated. This helps users stay up-to-date on any changes or updates to their tasks and ensures they always have the most current information. Another helpful feature is the ability to identify gaps between tasks and add tasks from the void bucket to fill those gaps. This allows users to make the most of their time and ensures they are always working on something productive. Additionally, receiving reminders 30 and 15 minutes before the start of a task to help them stay on track. ",
+        "image": "/images/notifications.svg"
+    },
+    {
+        "id": "rewards",
+        "title": "Rewards",
+        "subtitle": "Become an achiever by gaining rewards and moving further in the leaderboard. Exciting prizes like discounts, vouchers and much more",
+        "description": "Our new achievement program is designed to help users become top performers and achieve their goals. By completing tasks and meeting certain milestones, users can earn rewards and move up the leaderboard. These rewards could include discounts, vouchers, or other exciting prizes. The program is designed to motivate users to push themselves to become the best they can be and reach their full potential. As they progress through the program and move up the leaderboard, users will have the chance to unlock new levels and earn even more exciting rewards. Whether you're looking to boost your productivity at work or just want to be more successful in your personal goals, our achievement program can help you get there. So join today and start working towards becoming an achiever!",
+        "image": "/images/rewards.svg"
+    }
+]

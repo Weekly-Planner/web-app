@@ -50,14 +50,20 @@
     border: 2px solid #234d64;
 }
 
-.strategiesContainer {
-    padding: 32px 64px;
+.sectionContainer {
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    align-content: center;
 }
 
-.strategiesContainer h1 {
+.sectionContainerHeading {
     text-align: center;
-    margin-bottom: 64px;
     font-size: xx-large;
+    text-transform: uppercase;
+    margin: 0px;
 }
 
 .strategiesListContainer {
@@ -70,10 +76,16 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     align-content: center;
-    height: 220px;
+    row-gap: 32px;
+}
+
+.strategiesItemContainer img {
+    height: 50px;
+    width: 50px;
+    margin: 0px;
+    padding: 0px;
 }
 
 .strategiesItemContainer h3,
@@ -93,4 +105,82 @@
 
 .strategiesItemContainer p {
     font-size: medium;
+}
+
+.featureContainer {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.featureContainerHeading {
+    text-transform: uppercase;
+}
+
+.featureListItemContainer {
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    column-gap: 16px;
+    margin: 0px 64px;
+}
+
+.featureItemTextContainer {
+    text-align: left;
+    height: 100%;
+    align-self: baseline;
+}
+
+.featureItemImageContainer {
+    object-fit: contain;
+    height: 400px;
+    width: 400px;
+}
+
+.title {
+    font-size: xx-large;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    font-weight: bold;
+    font-size: medium;
+}
+
+.description {
+    font-size: small;
+}
+
+.pointers li {
+    font-size: 14px;
+}
+
+.titleContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    column-gap: 12px;
+}
+
+.titleContainer h1 {
+    padding-left: 32px;
+    font-weight: 300;
+    transition: padding-left 0.3s ease;
+}
+
+.titleLine {
+    flex: 1;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.titleContainer h1:hover {
+    padding-left: 64px;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.2);
 }
