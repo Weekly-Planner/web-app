@@ -1,0 +1,57 @@
+[{
+        "id": "tasks-per-day",
+        "standard": 5,
+        "hustler": "Unlimited",
+        "achiever": "Unlimited",
+        "title": "Tasks per day"
+    },
+    {
+        "id": "goals",
+        "standard": 2,
+        "hustler": "Unlimited",
+        "achiever": "Unlimited",
+        "title": "Goals"
+    },
+    {
+        "id": "yoga-mode",
+        "standard": null,
+        "hustler": "10 websites",
+        "achiever": "Unlimited",
+        "title": "Yoga Mode"
+    },
+    {
+        "id": "projects",
+        "standard": null,
+        "hustler": "5 projects",
+        "achiever": "Unlimited",
+        "title": "Projects"
+    },
+    {
+        "id": "statistics",
+        "standard": null,
+        "hustler": "Productivity Graph and Achievement Scale",
+        "achiever": "Productivity Graph, Achievement Scale, Activity Monitor, and Distraction Graph",
+        "title": "Statistics"
+    },
+    {
+        "id": "notifications",
+        "standard": null,
+        "hustler": "Upcoming tasks",
+        "achiever": "Upcoming tasks, the gap between tasks, and update tasks",
+        "title": "Notifications"
+    },
+    {
+        "id": "void-bucket",
+        "standard": null,
+        "hustler": null,
+        "achiever": "Yes",
+        "title": "Void Bucket"
+    },
+    {
+        "id": "rewards",
+        "standard": null,
+        "hustler": null,
+        "achiever": "Yes",
+        "title": "Rewards"
+    }
+]

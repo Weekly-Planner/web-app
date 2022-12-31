@@ -1,0 +1,58 @@
+.container {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+.pricingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin: 64px 0px;
+}
+
+.itemContainer {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.table {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-self: center;
+}
+
+.table tr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0px;
+}
+
+.table tr th {
+    display: flex;
+    flex: 1;
+    font-size: large;
+}
+
+.table tr td {
+    display: flex;
+    flex: 1;
+}
+
+.table .title {
+    font-weight: bold;
+}
+
+.timelineAction {
+    padding: 12px;
+    border-radius: 8px;
+    background-color: white;
+    font-size: small;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    outline: none;
+    cursor: pointer;
+}

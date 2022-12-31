@@ -15,6 +15,7 @@ import Toast, { ToastType } from "../../components/Toast";
 import { DATE_TIME_FORMAT } from "../../constants/datetime";
 import { getTasks } from "../../constants/firebase";
 import {
+  APP_NAME,
   DayItemType,
   generateNotification,
   NotificationType,
@@ -255,7 +256,7 @@ const MenuBar: React.FC<IMenuBar> = ({
     <>
       <div className={styles.headerContainer}>
         <div className={styles.headerInfoContainer}>
-          <h3>Weekly Planner</h3>
+          <h3>{APP_NAME}</h3>
           <p>{nameOrEmail}</p>
         </div>
         <div className={styles.actionContainer}>

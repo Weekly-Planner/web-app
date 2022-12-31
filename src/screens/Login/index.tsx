@@ -9,7 +9,7 @@ import Layout from "../../components/Layout";
 import PasswordIcon from "../../components/PasswordIcon";
 import TextInput from "../../components/TextInput";
 import Toast, { ToastType } from "../../components/Toast";
-import { generateNotification } from "../../constants/utils";
+import { APP_NAME, generateNotification } from "../../constants/utils";
 
 import { LOGIN_VALIDATION } from "../../constants/validations";
 import { useAuth } from "../../contexts/AuthProvider";
@@ -105,8 +105,8 @@ const Login: React.FC = () => {
         </div>
         <div className={styles.rightContainer}>
           <div className={styles.topContainer}>
-            <h1 className={styles.title}>Weekly Planner</h1>
-            <p>Welcome to Weekly Planner</p>
+            <h1 className={styles.title}>{APP_NAME}</h1>
+            <p>Welcome to {APP_NAME}</p>
           </div>
           <form onSubmit={formik.handleSubmit} className={styles.form}>
             <TextInput

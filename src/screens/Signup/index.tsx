@@ -9,7 +9,7 @@ import Layout from "../../components/Layout";
 import PasswordIcon from "../../components/PasswordIcon";
 import TextInput from "../../components/TextInput";
 import Toast, { ToastType } from "../../components/Toast";
-import { generateNotification } from "../../constants/utils";
+import { APP_NAME, generateNotification } from "../../constants/utils";
 import { SIGNUP_VALIDATION } from "../../constants/validations";
 import { useAuth } from "../../contexts/AuthProvider";
 import styles from "../../global/styles/Auth.module.css";
@@ -127,7 +127,7 @@ export default function Signup() {
         </div>
         <div className={styles.rightContainer}>
           <div className={styles.topContainer}>
-            <h3 className={styles.title}>Weekly Planner</h3>
+            <h3 className={styles.title}>{APP_NAME}</h3>
             <p className={styles.subtitle}>
               Become a member of the planners
               <br />

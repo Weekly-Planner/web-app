@@ -1,15 +1,16 @@
-import React from "react";
 import styles from "./index.module.css";
+import React from "react";
 
 type SectionTitleProps = {
   title: string;
+  subtitle: string;
 };
 
-const SectionTitle: React.FC<SectionTitleProps> = ({ title }) => {
+const SectionTitle: React.FC<SectionTitleProps> = ({ title, subtitle }) => {
   return (
     <div className={styles.container}>
       <h1>{title}</h1>
-      <div />
+      <p>{subtitle}</p>
     </div>
   );
 };

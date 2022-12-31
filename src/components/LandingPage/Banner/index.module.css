@@ -1,7 +1,7 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    height: 600px;
+    width: inherit;
+    height: inherit;
+    overflow-x: clip;
     background-image: url("/public/images/banner.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -20,8 +20,9 @@
 .content h1 {
     color: white;
     margin: 0px;
-    font-size: xxx-large;
+    font-size: xx-large;
     text-transform: uppercase;
+    text-align: center;
 }
 
 .content p {

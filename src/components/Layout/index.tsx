@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from "react";
 import { Helmet } from "react-helmet-async";
+import { APP_NAME } from "../../constants/utils";
 import { useAuth } from "../../contexts/AuthProvider";
 import styles from "./index.module.css";
 
@@ -37,7 +38,9 @@ const Layout: React.FC<ILayout> = ({
   return (
     <>
       <Helmet>
-        <title>{title} | Weekly Planner</title>
+        <title>
+          {title} | {APP_NAME}
+        </title>
       </Helmet>
       {isMenuDisplayed && (
         <div className={styles.container}>
@@ -49,7 +52,7 @@ const Layout: React.FC<ILayout> = ({
               height={50}
             />
             <div>
-              <h2>Weekly Planner</h2>
+              <h2>{APP_NAME}</h2>
               <p>Train yourself per week</p>
             </div>
           </a>

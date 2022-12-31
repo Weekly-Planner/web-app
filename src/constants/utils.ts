@@ -21,6 +21,8 @@ export type DayItemType = {
   tasks: TaskItemType[];
 };
 
+export const APP_NAME = "Weekly Planner";
+
 export function generateData(tasks: any[]) {
   const data = [];
   for (let i = 0; i < 7; i++) {
